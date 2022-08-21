@@ -1,0 +1,13 @@
+.title{
+    padding: 1rem 0rem 1rem 0
+}
+
+.container{
+    padding: 1rem;
+}
+
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; color: inherit; }
+a:active { text-decoration: none; }
+a { color: inherit; } 

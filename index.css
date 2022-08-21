@@ -1,0 +1,21 @@
+.toolCard{
+    width: 8rem;
+    height: 8rem;
+    background-color: transparent;
+    border: none;
+}
+
+
+.toolCard:hover{
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.069);
+    border-radius: 1rem;
+}
+
+.tools{
+    flex-wrap: wrap;
+}
+
+.card-title{
+    text-align: center;
+}
