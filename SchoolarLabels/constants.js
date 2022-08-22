@@ -1,5 +1,5 @@
 let schoolLabels = [
-    {id: 1, textSize: 0.25, lineHeight: "170%", textColor: "#9774B3",   textArea: [33.00, 23.23, 99.00, 76.66], paths:[
+    {id: 1, textSize: 0.20, lineHeight: "170%", textColor: "#9774B3",   textArea: [36.00, 23.23, 99.00, 76.66], paths:[
         '../SchoolarLabels/Resources/unicornio-1.png',
         '../SchoolarLabels/Resources/unicornio-2.png',
         '../SchoolarLabels/Resources/unicornio-3.png',

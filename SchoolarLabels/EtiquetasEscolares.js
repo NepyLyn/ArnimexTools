@@ -27,6 +27,7 @@ function fillPage(labelID, labelSize){
   //console.log(labelInfo)
 
   var labelCount = 0
+  let n = labelInfo.paths.length
 
   for (let i = 0; i < size.rowsPerPage ; i++) {
     var row = document.createElement('div')
@@ -44,7 +45,7 @@ function fillPage(labelID, labelSize){
 
       //Add image
       var image = document.createElement('img');
-      image.src = labelInfo.paths[0]
+      image.src = labelInfo.paths[Math.abs(labelCount % n)]   //Circular accesss
       image.style.width = size.width.toString() + "cm";
       div.appendChild(image);
       
