@@ -17,4 +17,7 @@ let schoolLabels = [
     {id: 3, textSize: 0.28, lineHeight: "200%", textColor: "#33001a",   textArea: [10.00, 10.00, 90.00, 88.00], paths:[
         '../SchoolarLabels/Resources/paint-1.png',
     ]},
+    {id: 4, textSize: 0.28, lineHeight: "200%", textColor: "#33001a",   textArea: [10.00, 10.00, 90.00, 88.00], paths:[
+        '../SchoolarLabels/Resources/marcoAzul-1.png',
+    ]},
 ]
