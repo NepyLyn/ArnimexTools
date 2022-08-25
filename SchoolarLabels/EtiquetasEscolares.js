@@ -19,21 +19,24 @@ function printLabelPage(){
   html2pdf().set(opt).from(page).save();
 }
 
-function fillPage(labelID, labelSize){
+function fillPage(labelID){
   var page =  document.getElementById('labelPage');
   page.innerHTML = '' //Clear
-  let size = labelSizes.medium
   let labelInfo = schoolLabels.find(label => label.id == labelID)
+  console.log(document.getElementById('inputsize').value)
+  let selectedSize = document.getElementById('inputsize').value
+  let pageConfig = labelSizes[selectedSize];
+
   //console.log(labelInfo)
 
   var labelCount = 0
   let n = labelInfo.paths.length
 
-  for (let i = 0; i < size.rowsPerPage ; i++) {
+  for (let i = 0; i < pageConfig.rowsPerPage ; i++) {
     var row = document.createElement('div')
     row.classList.add('labelRow')
 
-    for (let j = 0; j < size.labelsPerRow; j++) {
+    for (let j = 0; j < pageConfig.labelsPerRow; j++) {
       var div = document.createElement('div');
       div.classList.add("label-Instance", "text-dark");
 
@@ -46,7 +49,7 @@ function fillPage(labelID, labelSize){
       //Add image
       var image = document.createElement('img');
       image.src = labelInfo.paths[Math.abs(labelCount % n)]   //Circular accesss
-      image.style.width = size.width.toString() + "cm";
+      image.style.width = pageConfig.width.toString() + "cm";
       div.appendChild(image);
       
       //Add Text
@@ -56,7 +59,7 @@ function fillPage(labelID, labelSize){
       textArea.style.height = (labelInfo.textArea[3] - labelInfo.textArea[1]) + "%";
       textArea.style.left = labelInfo.textArea[0] + "%";
       textArea.style.top = labelInfo.textArea[1] + "%";
-      textArea.style.fontSize = labelInfo.textSize + "cm";
+      textArea.style.fontSize = labelInfo.textSize[selectedSize] + "cm";
       textArea.style.color = labelInfo.textColor;
       textArea.style.lineHeight = labelInfo.lineHeight;
       textArea.innerHTML = `<div> Nombre: ${name} </div>`;
@@ -78,7 +81,7 @@ function loadDesigns(){
   schoolLabels.forEach(function(schoolLabel){
     label = document.createElement('img')
     label.src = schoolLabel.paths[0]
-    label.onclick = function() { fillPage(schoolLabel.id, 'medium'); };
+    label.onclick = function() { fillPage(schoolLabel.id); };
     label.classList.add('schoolLabel')
     labelContainer.appendChild(label)
   })
