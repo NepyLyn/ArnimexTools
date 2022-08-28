@@ -2,10 +2,10 @@ function calcLabelNumber(labelW, labelH){
   useAreaWidth = pageSize.width - margins.page
   useAreaHeight = pageSize.height - margins.page
 
-  columnsNumber = Math.floor(useAreaWidth/(parseInt(labelW) + margins.x))
-  rowsNumber = Math.floor(useAreaHeight/(parseInt(labelH) + margins.y))
+  columnsNumber = Math.floor(useAreaWidth/(parseFloat(labelW) + margins.x))
+  rowsNumber = Math.floor(useAreaHeight/(parseFloat(labelH) + margins.y))
   let labelNumber = {cols: columnsNumber, rows:rowsNumber, total: columnsNumber*rowsNumber}
-  //console.log(columnsNumber, rowsNumber)
+  console.log(columnsNumber, (parseInt(labelH) + margins.y))
   return labelNumber
 }
 
@@ -15,9 +15,9 @@ function printLabelPage(){
   var opt = {
     margin: 0.0001,
     filename: "Etiquetas lapices.pdf",
-    image: { type: "png", quality: 1 },
-    html2canvas: { scale: 2, scrollY: 0, scrollX: -7},
-    jsPDF: { unit: "cm", format: "letter", orientation:  "portrait"},
+    image: {type: "png", quality: 1},
+    html2canvas: {scale: 2, scrollY: 0, scrollX: -7},
+    jsPDF: {unit: "cm", format: "letter", orientation:  "portrait"},
   };
 
   // New Promise-based usage:
