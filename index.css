@@ -2,8 +2,8 @@
     width: 8rem;
     height: 8rem;
     background-color: transparent;
-    border: none;
     margin-right: 4rem;
+    margin-bottom: 8rem;
 }
 
 
@@ -15,6 +15,7 @@
 
 .tools{
     flex-wrap: wrap;
+    flex-direction: row;
 }
 
 .card-title{
