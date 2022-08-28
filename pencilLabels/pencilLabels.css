@@ -1,0 +1,65 @@
+.schoolLabel{
+    width: 16rem;
+    background-color: aliceblue;
+    margin: 0rem 1rem 0rem 0rem;
+    border-radius: 10px;
+    border: 4px solid var(--bs-dark);
+}
+
+.schoolLabel:hover{
+    cursor: pointer;
+    filter: brightness(120%);
+    border: 4px solid var(--bs-primary);
+}
+
+.schoolLabel:after {
+    position: absolute;
+    content: '';
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,.5);
+}
+
+.labelPageContainer{
+    width: 8.5in;
+    height: 11in;
+    padding: 0.5cm;
+}
+
+.labelPage{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 8.5in;
+    height: 11in;
+    padding: 0.5cm;
+    background-color: white;
+}
+
+.labelRow{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.label-Instance{
+    display: flex;
+    overflow: hidden;
+    align-items: flex-start;
+    border: 1px solid black;
+    padding-left: 00.25cm;
+    line-height: 95%;
+    font-weight: bold;
+}
+
+.textArea{
+    background-color: transparent;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: 800;
+}
