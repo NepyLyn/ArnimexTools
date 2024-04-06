@@ -87,8 +87,8 @@ function changeBarcode(){
     let barcode = document.getElementById('barcode');
     
     //Set
-    barcodePrev.src = '/labelGenerator/Resources/barcodes/' +  selectedBarcode.value + '.png'
-    barcode.src = '/labelGenerator/Resources/barcodes/' +  selectedBarcode.value + '.png'
+    barcodePrev.src = 'Resources/barcodes/' +  selectedBarcode.value + '.png'
+    barcode.src = 'Resources/barcodes/' +  selectedBarcode.value + '.png'
 
 }
 
