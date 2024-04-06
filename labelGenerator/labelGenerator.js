@@ -14,7 +14,8 @@ function getSelectedSize(){
 };
 
 function changeSize(){
-    const filteredSize = getSelectedSize();
+    let filteredSize = getSelectedSize();
+    console.log(filteredSize)
     //console.log(filteredSize.height + ' | ' + filteredSize.width)
 
     //Set size
@@ -31,6 +32,18 @@ function changeSize(){
     //Legend
     var quantity = document.getElementById('quantity');
     quantity.style.fontSize = filteredSize.subtitleFontSize + 'rem'
+
+    let slogans = document.getElementsByName('slogan');
+    console.log(slogans)
+
+    // Iterar sobre la colección de elementos
+    for (let i = 0; i < slogans.length; i++) {
+        // Acceder al elemento actual en la iteración
+        let slogan = slogans[i];
+        
+        // Realizar acciones con el elemento actual, por ejemplo, mostrar su contenido
+        slogan.style.fontSize = filteredSize.sloganSize + 'rem'
+    }
 };
 
 function changeTitle(){
@@ -60,6 +73,8 @@ function changeColor(){
     //Set
     border.style.borderColor = color.value;
     band.style.backgroundColor = color.value;
+
+    applyColorToBG();
 }
 
 function changeQuantity(){
@@ -125,6 +140,8 @@ function loadSizes(){
        radioGroup.appendChild(inputElement);
        radioGroup.appendChild(labelElement);
     });
+
+    reset()
 };
 
 function loadBarcodes(){
@@ -139,7 +156,86 @@ function loadBarcodes(){
     });
 };
 
+function hexToRgb(hexColor) {
+    // Convertir el valor hexagonal a RGB
+    var r = parseInt(hexColor.substr(1, 2), 16);
+    var g = parseInt(hexColor.substr(3, 2), 16);
+    var b = parseInt(hexColor.substr(5, 2), 16);
 
+    return [r,g,b]
+}
+
+// Función para cargar la imagen y aplicar el color
+function applyColorToBG() {
+    let opacity = 0.2;
+
+    //Get color
+    color = hexToRgb(document.getElementById('labelColor').value)
+
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var img = new Image();
+  
+    img.onload = function() {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+      // Dibujar la imagen original en el canvas
+      ctx.drawImage(img, 0, 0);
+  
+      // Obtener los datos de píxeles de la imagen
+      var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      var pixels = imgData.data;
+  
+      // Iterar sobre los píxeles y aplicar el color
+      for (var i = 0; i < pixels.length; i += 4) {
+        // Saltar los píxeles transparentes
+        if (pixels[i + 3] === 0) continue;
+  
+        // Aplicar el color al píxel
+        pixels[i] = color[0];
+        pixels[i + 1] = color[1];
+        pixels[i + 2] = color[2];
+
+        // Aplicar la transparencia al píxel
+        pixels[i + 3] = Math.round(pixels[i + 3] * opacity);
+      }
+  
+      // Establecer los datos de píxeles modificados en el canvas
+      ctx.putImageData(imgData, 0, 0);
+  
+      // Convertir el canvas a un data URL
+      var dataURL = canvas.toDataURL();
+  
+      // Establecer el data URL como fondo del div
+      var coloredBackground = document.getElementById('label');
+      coloredBackground.style.backgroundImage = 'url(' + dataURL + ')';
+    };
+  
+    // Cargar la imagen
+    img.src = 'resources/background.png';
+}
+
+function loadTemplate(){
+    // Obtener una referencia al div donde deseas insertar el contenido
+    let divContenedor = document.getElementById('labelContainer');
+    let selectedLabel = document.getElementById('labelType')
+
+    // URL del archivo HTML que deseas cargar
+    let url = selectedLabel.value + '.html'
+
+    // Usar fetch para obtener el contenido del archivo HTML
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            // Insertar el contenido en el div contenedor
+            divContenedor.innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error al cargar el archivo:', error);
+    });
+};
 
 //#region Save
 function saveAsImage(){
@@ -162,7 +258,7 @@ async function fillPage(){
     //Calculate how many items
     const pageSize = {width: 21.59, height: 27.94};
     const labelSize = getSelectedSize();
-    const margin = 0.5;
+    const margin = 0;
 
     //x
     const columns = Math.floor((pageSize.width - margin*2)/labelSize.width);
@@ -186,6 +282,9 @@ async function fillPage(){
 };
 
 async function saveAsPDF(){
+    //To avoid white space on top
+    window.scrollTo(0, 0);
+
     await fillPage();
 
     //to pdf
@@ -195,23 +294,26 @@ async function saveAsPDF(){
     var opt = {
         margin: 0,
         filename: "Plantilla.pdf",
-        image: { type: "svg", quality: 1 },
-        html2canvas: { scale: 2 },
+        image: { type: "svg", quality: 3 },
+        html2canvas: { scale: 3, y: 0,  scrollY: 0},
         jsPDF: { unit: "cm", format: "letter", orientation: "portrait" },
     };
 
-    //To avoid white space on top
-    window.scrollTo(0, 0);
-    setTimeout(() => {
-        html2pdf().set(opt).from(page).save();
-    }, 300);
+    html2pdf().set(opt).from(page).save();
 };
 
 //#region On Load
+function reset(){
+    loadTemplate();
+    changeSize();
+    changeColor();
+    changeBarcode();
+}
+
 window.onload = function() {
+    //Load
     loadSizes();
     loadBarcodes();
-    changeColor();
-    changeSize();
-    changeBarcode();
+    reset();
+    
 };
