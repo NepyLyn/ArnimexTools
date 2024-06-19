@@ -258,7 +258,7 @@ async function fillPage(){
     //Calculate how many items
     const pageSize = {width: 21.59, height: 27.94};
     const labelSize = getSelectedSize();
-    const margin = 0;
+    const margin = 0.5;
 
     //x
     const columns = Math.floor((pageSize.width - margin*2)/labelSize.width);

@@ -5,6 +5,7 @@ const LABELSIZES = [
     ,{id: 4, type: "templateRectangularHorizontal", sizeName: "Chica 5x3.5cm", height: 3.5, width: 5, titleFontSize: 0.8, subtitleFontSize: 0.4, sloganSize: 0.7}
     ,{id: 5, type: "templateRectangularHorizontal", sizeName: "Mediana 6x4cm", height: 4, width: 6, titleFontSize: 1, subtitleFontSize: 0.5, sloganSize: 0.8}
     ,{id: 6, type: "templateRectangularHorizontal", sizeName: "Grande 10x6cm", height: 6, width: 10, titleFontSize: 1.5, subtitleFontSize: 0.8, sloganSize: 1.3}
+    ,{id: 7, type: "templateRectangularVertical", sizeName: "Chica 3x4cm", height: 4, width: 3, titleFontSize: 0.8, subtitleFontSize: 0.4, sloganSize: 0.1}
 ]
 
 const BARCODENAMES = [
