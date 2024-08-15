@@ -1,16 +1,16 @@
 @font-face {
     font-family: arnimex;
-    src: url(/resources/arnimex.ttf);
+    src: url(../../resources/arnimex.ttf);
 }
 
 @font-face {
     font-family: courgette;
-    src: url(/resources/Courgette-Regular.ttf);
+    src: url(../../resources/Courgette-Regular.ttf);
 }
 
 @font-face {
     font-family: montserrat;
-    src: url(/resources/Montserrat-Regular.ttf);
+    src: url(../../resources/Montserrat-Regular.ttf);
 }
 
 
