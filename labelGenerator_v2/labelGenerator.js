@@ -69,10 +69,12 @@ function changeColor(){
     const color = document.getElementById('labelColor');
     var border = document.getElementById('border');
     var band = document.getElementById('labelTitle');
+    var barcode = document.getElementById('barcode');
 
     //Set
-    border.style.borderColor = color.value;
+    border.style.backgroundColor = color.value;
     band.style.backgroundColor = color.value;
+    barcode.style.backgroundColor = color.value;
 
     applyColorToBG();
 }
