@@ -13,6 +13,23 @@
     src: url(../../resources/Montserrat-Regular.ttf);
 }
 
+#printArea{
+    display: flex;
+    justify-content: center;
+}
+
+#page{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    resize: none;
+    justify-content: space-between;
+    width: 21.59cm;
+    height: 27.94cm;
+    min-width: 21.59cm;
+    min-height: 27.94cm;;
+    padding: 0.5cm;
+}
 
 /* ---------- Label circular ------------*/
 
