@@ -100,8 +100,8 @@ path {
     width: 120%;
     background-color: #0a3970;
     color: white;
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
-    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
     font-style: normal;
     font-size: 60%;
     text-wrap: wrap;

@@ -64,17 +64,85 @@ function changeSubtitle(){
     subtitle.innerHTML = subtitleInput.value;
 };
 
+// Devuelve "#000000" (negro) o "#FFFFFF" (blanco) según dé mejor contraste con el fondo
+function bestTextColor(bgColor) {
+  const { r, g, b } = toRGB(bgColor);
+  const L = relativeLuminance(r, g, b);
+
+  // Contraste WCAG con blanco (L=1) y negro (L=0)
+  const contrastWithWhite = (1.0 + 0.05) / (L + 0.05);
+  const contrastWithBlack = (L + 0.05) / 0.05;
+
+  return contrastWithBlack >= contrastWithWhite ? "#000000" : "#FFFFFF";
+}
+
+// ---- helpers ----
+function relativeLuminance(r, g, b) {
+  const [R, G, B] = [r, g, b].map(v => {
+    const c = v / 255;
+    return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+}
+
+function toRGB(color) {
+  if (!color) return { r: 255, g: 255, b: 255 };
+
+  // fuerza a string por si llega como objeto (p.ej. de getComputedStyle)
+  color = String(color).trim();
+
+  // #RRGGBB o #RRGGBBAA
+  if (/^#([0-9a-f]{6})([0-9a-f]{2})?$/i.test(color)) {
+    const hex = color.slice(1);
+    const r = parseInt(hex.slice(0, 2), 16);
+    const g = parseInt(hex.slice(2, 4), 16);
+    const b = parseInt(hex.slice(4, 6), 16);
+    return { r, g, b };
+  }
+
+  // #RGB
+  if (/^#([0-9a-f]{3})$/i.test(color)) {
+    const h = color.slice(1);
+    const r = parseInt(h[0] + h[0], 16);
+    const g = parseInt(h[1] + h[1], 16);
+    const b = parseInt(h[2] + h[2], 16);
+    return { r, g, b };
+  }
+
+  // rgb() / rgba()
+  const rgbMatch = color.match(/rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)(?:\s*,\s*([\d.]+))?\s*\)/i);
+  if (rgbMatch) {
+    return { r: +rgbMatch[1], g: +rgbMatch[2], b: +rgbMatch[3] };
+  }
+
+  // fallback
+  return { r: 255, g: 255, b: 255 };
+}
+
+
 function changeColor(){
     //Get
-    const color = document.getElementById('labelColor');
+    const backgroundColor = document.getElementById('labelColor').value;
     var border = document.getElementById('border');
     var band = document.getElementById('labelTitle');
     var barcode = document.getElementById('barcode');
 
     //Set
-    border.style.backgroundColor = color.value;
-    band.style.backgroundColor = color.value;
-    barcode.style.backgroundColor = color.value;
+    border.style.backgroundColor = backgroundColor;
+    band.style.backgroundColor = backgroundColor;
+    barcode.style.backgroundColor = backgroundColor;
+
+    // Text color
+    console.log(`Backgorund selected color: ${backgroundColor}`)
+    const textColor = bestTextColor(backgroundColor);
+
+    var title = document.getElementById('labelTitle');
+    var slogan = document.querySelector(".labelCircularSlogan text");
+    var quantity = document.querySelector(".labelCircularQuantity text");
+    
+    title.style.color = textColor;
+    if (slogan) {slogan.style.fill = textColor;}
+    if (quantity) {quantity.style.fill = textColor;}
 
     applyColorToBG();
 }
